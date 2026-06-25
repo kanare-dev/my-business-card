@@ -2,6 +2,12 @@
 
 個人名刺のデザインファイル。技術イベント（AWS Summit、JAWS UG など）での配布用。
 
+## プレビュー
+
+| 表面 | 裏面 |
+|:---:|:---:|
+| ![表面](preview/front.png) | ![裏面](preview/back.png) |
+
 ## デザイン
 
 - **コンセプト:** ミニマル・ダーク（[kanare.dev](https://kanare.dev) と統一）
@@ -17,9 +23,12 @@ my-business-card/
 ├── assets/
 │   ├── avatar.png       # プロフィール画像
 │   └── qr-code.svg      # QR コード（kanare.dev）
-├── dist/
+├── dist/                # 最終成果物（Git 管理）
 │   ├── front.pdf        # 印刷用 PDF（表面）61mm × 97mm
 │   └── back.pdf         # 印刷用 PDF（裏面）61mm × 97mm
+├── preview/             # PNG プレビュー（Git 管理）
+│   ├── front.png
+│   └── back.png
 ├── src/
 │   ├── styles.css       # 共通スタイル（CSS Variables・コンポーネント）
 │   ├── partials/
@@ -29,13 +38,14 @@ my-business-card/
 │       ├── index.html       # プレビュー用テンプレート
 │       ├── print-front.html # 印刷用テンプレート（表面）
 │       └── print-back.html  # 印刷用テンプレート（裏面）
-├── build.py         # ビルドスクリプト
-├── index.html       # 生成物 — プレビュー用
-├── print-front.html # 生成物 — 印刷用（表面）
-└── print-back.html  # 生成物 — 印刷用（裏面）
+├── build/               # 中間生成物（gitignore）
+│   ├── index.html
+│   ├── print-front.html
+│   └── print-back.html
+└── build.py             # ビルドスクリプト
 ```
 
-> **編集するのは `src/` 以下のみ。** `index.html` / `print-*.html` は生成物なので直接編集しない。
+> **編集するのは `src/` 以下のみ。** `build/` 以下は生成物なので直接編集しない。
 
 ## ビルド
 
@@ -46,14 +56,11 @@ python3 build.py --html  # HTML 生成のみ
 
 PDF 生成には Google Chrome（macOS）が必要です。
 
-## プレビュー
+## ローカルプレビュー
 
 ```bash
-python3 -m http.server 8080
-# → http://localhost:8080/
+open build/index.html
 ```
-
-`index.html` を直接ブラウザで開くことも可能ですが、ローカルサーバー経由の方がフォントの読み込みが安定します。
 
 塗り足しガイド（金色のアウトライン）はプレビュー時のみ表示され、印刷時は自動で非表示になります。
 

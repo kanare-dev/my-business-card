@@ -24,6 +24,14 @@ PDF_TARGETS = [
     ('build/print-back.html',  'dist/back.pdf'),
 ]
 
+PNG_TARGETS = [
+    ('build/print-front.html', 'preview/front.png'),
+    ('build/print-back.html',  'preview/back.png'),
+]
+
+# 61mm × 97mm at 96dpi = 230×366 CSS px; scale=3 → 690×1098px
+PNG_W, PNG_H, PNG_SCALE = 230, 366, 3
+
 def expand(content, base_dir):
     def replacer(m):
         path = os.path.join(base_dir, m.group(1).strip())
@@ -66,8 +74,35 @@ def build_pdf():
 
         httpd.shutdown()
 
+def build_png():
+    os.makedirs(os.path.join(BASE, 'preview'), exist_ok=True)
+
+    handler = functools.partial(http.server.SimpleHTTPRequestHandler, directory=BASE)
+    handler.log_message = lambda *a: None
+    with socketserver.TCPServer(('', PORT + 1), handler) as httpd:
+        t = threading.Thread(target=httpd.serve_forever)
+        t.daemon = True
+        t.start()
+        time.sleep(0.5)
+
+        for src_html, out_png in PNG_TARGETS:
+            out_path = os.path.join(BASE, out_png)
+            subprocess.run([
+                CHROME,
+                '--headless=new',
+                f'--screenshot={out_path}',
+                f'--window-size={PNG_W},{PNG_H}',
+                f'--force-device-scale-factor={PNG_SCALE}',
+                '--hide-scrollbars',
+                f'http://localhost:{PORT + 1}/{src_html}',
+            ], capture_output=True)
+            print(f'  png   {out_png}')
+
+        httpd.shutdown()
+
 if __name__ == '__main__':
     html_only = '--html' in sys.argv
     build_html()
     if not html_only:
         build_pdf()
+        build_png()
