@@ -6,21 +6,22 @@
   <title>Business Card — Kanare Kodera</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+JP:wght@200;300;400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
   <style>
     /* =====================================================
        CSS Variables — ここだけ変更してデザインを微調整できる
        ===================================================== */
     :root {
-      /* Colors */
-      --color-bg:              #0B0B0B;
-      --color-text-primary:    #FFFFFF;
-      --color-text-secondary:  rgba(255, 255, 255, 0.45);
-      --color-divider:         rgba(255, 255, 255, 0.12);
-      --color-monogram:        rgba(255, 255, 255, 0.03);
+      /* Colors — kanare.dev dark theme と統一 */
+      --color-bg:              #131210;
+      --color-text-primary:    #BFBFBF;
+      --color-text-secondary:  #949494;
+      --color-accent:          #d8aa00;
+      --color-divider:         rgba(148, 148, 148, 0.25);
+      --color-monogram:        rgba(191, 191, 191, 0.04);
 
-      /* Typography */
-      --font-sans:  'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      /* Typography — kanare.dev と統一 */
+      --font-sans:  'IBM Plex Sans JP', sans-serif;
       --font-mono:  'JetBrains Mono', 'Fira Code', monospace;
 
       /* Card dimensions — ラクスル 標準名刺 91×55mm 縦型 */
@@ -58,7 +59,7 @@
        Preview layout (not printed)
        ===================================================== */
     body {
-      background: #161616;
+      background: #171716;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -87,7 +88,7 @@
       position: relative;
       overflow: hidden;
       /* 塗り足しガイド (プレビューのみ表示) */
-      outline: var(--bleed) solid rgba(255, 80, 80, 0.2);
+      outline: var(--bleed) solid rgba(216, 170, 0, 0.4);
       outline-offset: calc(-1 * var(--bleed));
     }
 
@@ -106,7 +107,7 @@
     .card__rule {
       width: 7mm;
       height: 0.25mm;
-      background: var(--color-divider);
+      background: var(--color-accent);
       flex-shrink: 0;
     }
 
@@ -123,6 +124,26 @@
       flex-direction: column;
       gap: 0;
       line-height: 1;
+    }
+
+    /* アバター */
+    .card__avatar-wrap {
+      display: flex;
+      justify-content: center;
+    }
+
+    .card__avatar {
+      width:         13mm;
+      height:        13mm;
+      border-radius: 50%;
+      overflow:      hidden;
+      flex-shrink:   0;
+    }
+
+    .card__avatar img {
+      width:      100%;
+      height:     100%;
+      object-fit: cover;
     }
 
     .card__name-line {
@@ -237,21 +258,6 @@
       color:          var(--color-text-primary);
     }
 
-    /* 裏面の背景モノグラム (印刷映え) */
-    .card--back::before {
-      content:     'K';
-      position:    absolute;
-      right:       -4mm;
-      top:         50%;
-      transform:   translateY(-50%);
-      font-family: var(--font-sans);
-      font-weight: 200;
-      font-size:   60mm;
-      line-height: 1;
-      color:       var(--color-monogram);
-      pointer-events: none;
-      user-select: none;
-    }
 
     /* =====================================================
        @media print — 印刷時はプレビューUIを非表示
@@ -277,6 +283,13 @@
       <div class="card__name">
         <span class="card__name-line">Kanare</span>
         <span class="card__name-line">Kodera</span>
+      </div>
+
+      <!-- アバター（中央） -->
+      <div class="card__avatar-wrap">
+        <div class="card__avatar">
+          <img src="avatar.png" alt="Avatar">
+        </div>
       </div>
 
       <!-- 肩書き・技術スタック -->

@@ -13,8 +13,8 @@
 
 ```
 my-business-card/
-├── index.html   # HTML/CSS 実装（ブラウザプレビュー・印刷用）
-└── prompt.md    # デザイン仕様・要件定義
+├── index.html    # HTML/CSS 実装（ブラウザプレビュー・印刷用）
+└── qr-code.svg  # QR コード（kanare.dev）
 ```
 
 ## プレビューの確認方法
