@@ -38,6 +38,11 @@
       justify-content: flex-start;
       align-items: flex-start;
     }
+
+    /* トップのセーフエリア分だけ下にずらして、上下余白を視覚的に均等にする */
+    .card__qr-section {
+      padding-bottom: calc(var(--bleed) + var(--safe-h));
+    }
   </style>
 </head>
 <body>
