@@ -4,52 +4,78 @@
 
 ## デザイン
 
-- **コンセプト:** ミニマル・上質・静かなデザイン（Apple / MUJI 系）
+- **コンセプト:** ミニマル・ダーク（[kanare.dev](https://kanare.dev) と統一）
 - **サイズ:** 91mm × 55mm（縦型・両面）
 - **印刷:** CMYK 想定、塗り足し 3mm 考慮
-- **フォント:** Inter（名前・肩書き）/ JetBrains Mono（技術タグ・ラベル）
+- **フォント:** IBM Plex Sans JP（名前・肩書き）/ JetBrains Mono（技術タグ・連絡先）
+- **アイコン:** Tabler Icons（統一ストロークスタイル）
 
 ## ファイル構成
 
 ```
 my-business-card/
-├── index.html    # HTML/CSS 実装（ブラウザプレビュー・印刷用）
-└── qr-code.svg  # QR コード（kanare.dev）
+├── assets/
+│   ├── avatar.png       # プロフィール画像
+│   └── qr-code.svg      # QR コード（kanare.dev）
+├── dist/
+│   ├── front.pdf        # 印刷用 PDF（表面）61mm × 97mm
+│   └── back.pdf         # 印刷用 PDF（裏面）61mm × 97mm
+├── src/
+│   ├── styles.css       # 共通スタイル（CSS Variables・コンポーネント）
+│   ├── partials/
+│   │   ├── front.html   # 表面カードの HTML フラグメント
+│   │   └── back.html    # 裏面カードの HTML フラグメント
+│   └── templates/
+│       ├── index.html       # プレビュー用テンプレート
+│       ├── print-front.html # 印刷用テンプレート（表面）
+│       └── print-back.html  # 印刷用テンプレート（裏面）
+├── build.py         # ビルドスクリプト
+├── index.html       # 生成物 — プレビュー用
+├── print-front.html # 生成物 — 印刷用（表面）
+└── print-back.html  # 生成物 — 印刷用（裏面）
 ```
 
-## プレビューの確認方法
+> **編集するのは `src/` 以下のみ。** `index.html` / `print-*.html` は生成物なので直接編集しない。
 
-### ブラウザで開く（最速）
+## ビルド
 
 ```bash
-open index.html
+python3 build.py         # HTML 生成 + PDF 生成（dist/）
+python3 build.py --html  # HTML 生成のみ
 ```
 
-または VS Code の拡張機能「Live Server」を使うと、コード変更をリアルタイムで確認できます。
+PDF 生成には Google Chrome（macOS）が必要です。
 
-### 印刷プレビュー
+## プレビュー
 
-ブラウザで `index.html` を開き、`Cmd + P` → 「印刷」で印刷プレビューを確認できます。  
-`@media print` スタイルが適用され、プレビュー UI（ラベル・塗り足しガイド）は非表示になります。
+```bash
+python3 -m http.server 8080
+# → http://localhost:8080/
+```
 
-### カスタマイズ
+`index.html` を直接ブラウザで開くことも可能ですが、ローカルサーバー経由の方がフォントの読み込みが安定します。
 
-`index.html` 冒頭の `:root` 内の CSS Variables を変更するだけでデザインを調整できます。
+塗り足しガイド（金色のアウトライン）はプレビュー時のみ表示され、印刷時は自動で非表示になります。
+
+## カスタマイズ
+
+`src/styles.css` の `:root` 内の CSS Variables を変更するだけでデザインを調整できます。
 
 ```css
 :root {
-  --color-bg:           #0B0B0B;   /* 背景色 */
-  --color-text-primary: #FFFFFF;   /* 主テキスト */
-  --fs-name:            9.5mm;     /* 名前フォントサイズ */
+  --color-bg:    #131210;  /* 背景色 */
+  --color-accent: #d8aa00; /* アクセントカラー */
+  --fs-name:     9.5mm;    /* 名前フォントサイズ */
   /* ... */
 }
 ```
 
+変更後は `python3 build.py` で再ビルド。
+
 ## 印刷（ラクスル）
 
-1. `index.html` をブラウザで開く
-2. `Cmd + P` → 用紙サイズを **91 × 55mm**（縦）に設定
-3. 「背景のグラフィックを印刷する」を有効にする
-4. PDF として保存 → ラクスルへアップロード
+1. `python3 build.py` で `dist/front.pdf` / `dist/back.pdf` を生成
+2. ラクスルで「標準名刺」「両面」を選択
+3. `dist/front.pdf`（表面）・`dist/back.pdf`（裏面）をアップロード
 
-塗り足しガイド（赤い半透明のアウトライン）は印刷時に自動で非表示になります。
+PDF はラクスル指定の仕上がりサイズ（91mm × 55mm）+ 塗り足し 3mm = **61mm × 97mm** で出力されます。
