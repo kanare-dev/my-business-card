@@ -100,6 +100,14 @@
   gap: var(--sp-xs);
 }
 
+.card__tag-label {
+  font-family:    var(--font-mono);
+  font-weight:    300;
+  font-size:      var(--fs-tag);
+  letter-spacing: 0.05em;
+  color:          var(--color-accent);
+}
+
 .card__tag {
   font-family:    var(--font-mono);
   font-weight:    300;
