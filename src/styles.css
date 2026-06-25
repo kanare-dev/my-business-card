@@ -112,10 +112,12 @@
    Back card components
    ===================================================== */
 .card__qr-wrap {
-  align-self: center;
+  flex: 1;
+  align-self: stretch;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: var(--sp-xs);
 }
 
