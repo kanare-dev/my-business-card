@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Business Card Back — Kanare Kodera</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+JP:wght@200;300;400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-bg:             #131210;
+      --color-text-primary:   #BFBFBF;
+      --color-text-secondary: #949494;
+      --color-accent:         #d8aa00;
+
+      --font-sans: 'IBM Plex Sans JP', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      --card-w:  55mm;
+      --card-h:  91mm;
+      --bleed:   3mm;
+      --page-w:  61mm;
+      --page-h:  97mm;
+      --safe-h:  8mm;
+      --safe-v:  7mm;
+
+      --sp-xs:    1.5mm;
+      --sp-sm:    3mm;
+      --fs-label: 1.7mm;
+      --fs-value: 2.1mm;
+    }
+
+    @page {
+      size: var(--page-w) var(--page-h);
+      margin: 0;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width:      var(--page-w);
+      height:     var(--page-h);
+      background: var(--color-bg);
+      font-family: var(--font-sans);
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .card {
+      width:      var(--page-w);
+      height:     var(--page-h);
+      background: var(--color-bg);
+      position:   relative;
+      overflow:   hidden;
+    }
+
+    .card__inner {
+      position: absolute;
+      top:    calc(var(--bleed) + var(--safe-h));
+      bottom: calc(var(--bleed) + var(--safe-h));
+      left:   calc(var(--bleed) + var(--safe-v));
+      right:  calc(var(--bleed) + var(--safe-v));
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .card__qr-wrap {
+      align-self: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--sp-xs);
+    }
+
+    .card__qr {
+      width:           22mm;
+      height:          22mm;
+      background:      var(--color-text-primary);
+      border-radius:   1mm;
+      display:         flex;
+      align-items:     center;
+      justify-content: center;
+      overflow:        hidden;
+    }
+
+    .card__qr img {
+      width:  100%;
+      height: 100%;
+    }
+
+    .card__qr-caption {
+      font-family:    var(--font-mono);
+      font-size:      1.6mm;
+      font-weight:    300;
+      letter-spacing: 0.05em;
+      color:          var(--color-text-secondary);
+    }
+
+    .card__contact {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-sm);
+    }
+
+    .card__rule {
+      width:      7mm;
+      height:     0.25mm;
+      background: var(--color-accent);
+      flex-shrink: 0;
+    }
+
+    .card__contact-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-xs);
+    }
+
+    .card__contact-item {
+      display:     flex;
+      align-items: baseline;
+      gap:         2mm;
+    }
+
+    .card__contact-label {
+      font-family:    var(--font-mono);
+      font-weight:    300;
+      font-size:      var(--fs-label);
+      letter-spacing: 0.04em;
+      color:          var(--color-text-secondary);
+      min-width:      7mm;
+      flex-shrink:    0;
+    }
+
+    .card__contact-value {
+      font-family:    var(--font-sans);
+      font-weight:    300;
+      font-size:      var(--fs-value);
+      letter-spacing: 0.01em;
+      color:          var(--color-text-primary);
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="card__inner">
+
+      <div class="card__qr-wrap">
+        <div class="card__qr">
+          <img src="qr-code.svg" alt="QR code for kanare.dev">
+        </div>
+        <span class="card__qr-caption">kanare.dev</span>
+      </div>
+
+      <div class="card__contact">
+        <div class="card__rule"></div>
+
+        <div class="card__contact-group">
+          <div class="card__contact-item">
+            <span class="card__contact-label">Web</span>
+            <span class="card__contact-value">https://kanare.dev</span>
+          </div>
+          <div class="card__contact-item">
+            <span class="card__contact-label">Mail</span>
+            <span class="card__contact-value">me@kanare.dev</span>
+          </div>
+        </div>
+
+        <div class="card__contact-group">
+          <div class="card__contact-item">
+            <span class="card__contact-label">X</span>
+            <span class="card__contact-value">@kanare_io</span>
+          </div>
+          <div class="card__contact-item">
+            <span class="card__contact-label">Github</span>
+            <span class="card__contact-value">kanare-dev</span>
+          </div>
+          <div class="card__contact-item">
+            <span class="card__contact-label">LinkedIn</span>
+            <span class="card__contact-value">/in/kanare</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>
