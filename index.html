@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Business Card — Kanare Kodera</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    /* =====================================================
+       CSS Variables — ここだけ変更してデザインを微調整できる
+       ===================================================== */
+    :root {
+      /* Colors */
+      --color-bg:              #0B0B0B;
+      --color-text-primary:    #FFFFFF;
+      --color-text-secondary:  rgba(255, 255, 255, 0.45);
+      --color-divider:         rgba(255, 255, 255, 0.12);
+      --color-monogram:        rgba(255, 255, 255, 0.03);
+
+      /* Typography */
+      --font-sans:  'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono:  'JetBrains Mono', 'Fira Code', monospace;
+
+      /* Card dimensions — ラクスル 標準名刺 91×55mm 縦型 */
+      --card-w:    55mm;
+      --card-h:    91mm;
+
+      /* 塗り足し 3mm (印刷時のガイド表示用) */
+      --bleed:     3mm;
+
+      /* セーフエリア = 塗り足し + 余白 */
+      --safe-h:    8mm;   /* 上下の安全マージン */
+      --safe-v:    7mm;   /* 左右の安全マージン */
+
+      /* Spacing tokens */
+      --sp-xs:   1.5mm;
+      --sp-sm:   3mm;
+      --sp-md:   5mm;
+      --sp-lg:   8mm;
+      --sp-xl:   12mm;
+
+      /* Font sizes */
+      --fs-name:    9.5mm;
+      --fs-title:   2.2mm;
+      --fs-tag:     1.9mm;
+      --fs-label:   1.7mm;
+      --fs-value:   2.1mm;
+    }
+
+    /* =====================================================
+       Reset
+       ===================================================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* =====================================================
+       Preview layout (not printed)
+       ===================================================== */
+    body {
+      background: #161616;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      padding: 48px 40px;
+      font-family: var(--font-sans);
+    }
+
+    .preview__label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.25);
+    }
+
+    /* =====================================================
+       Card — shared
+       ===================================================== */
+    .card {
+      width:    var(--card-w);
+      height:   var(--card-h);
+      background: var(--color-bg);
+      position: relative;
+      overflow: hidden;
+      /* 塗り足しガイド (プレビューのみ表示) */
+      outline: var(--bleed) solid rgba(255, 80, 80, 0.2);
+      outline-offset: calc(-1 * var(--bleed));
+    }
+
+    /* セーフエリア内コンテンツ */
+    .card__inner {
+      position: absolute;
+      top:    var(--safe-h);
+      bottom: var(--safe-h);
+      left:   var(--safe-v);
+      right:  var(--safe-v);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* セクション区切り線 */
+    .card__rule {
+      width: 7mm;
+      height: 0.25mm;
+      background: var(--color-divider);
+      flex-shrink: 0;
+    }
+
+    /* =====================================================
+       Front — 表面
+       ===================================================== */
+    .card--front .card__inner {
+      justify-content: space-between;
+    }
+
+    /* 名前ブロック */
+    .card__name {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      line-height: 1;
+    }
+
+    .card__name-line {
+      font-family:    var(--font-sans);
+      font-weight:    200;
+      font-size:      var(--fs-name);
+      letter-spacing: -0.01em;
+      color:          var(--color-text-primary);
+      line-height:    1.1;
+    }
+
+    /* 下部ブロック */
+    .card__bottom {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-sm);
+    }
+
+    .card__title {
+      font-family:    var(--font-sans);
+      font-weight:    300;
+      font-size:      var(--fs-title);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color:          var(--color-text-secondary);
+    }
+
+    .card__tags {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-xs);
+    }
+
+    .card__tag {
+      font-family:    var(--font-mono);
+      font-weight:    300;
+      font-size:      var(--fs-tag);
+      letter-spacing: 0.02em;
+      color:          var(--color-text-secondary);
+    }
+
+    /* =====================================================
+       Back — 裏面
+       ===================================================== */
+    .card--back .card__inner {
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    /* QRコード */
+    .card__qr-wrap {
+      align-self: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--sp-xs);
+    }
+
+    .card__qr {
+      width:            22mm;
+      height:           22mm;
+      background:       var(--color-text-primary);
+      border-radius:    1mm;
+      display:          flex;
+      align-items:      center;
+      justify-content:  center;
+    }
+
+    /* QRコードSVGのプレースホルダー
+       実装時は <img src="qr.svg"> に差し替え */
+    .card__qr-placeholder {
+      font-family:  var(--font-mono);
+      font-size:    1.6mm;
+      font-weight:  400;
+      color:        var(--color-bg);
+      text-align:   center;
+      line-height:  1.5;
+      opacity:      0.5;
+    }
+
+    .card__qr-caption {
+      font-family:    var(--font-mono);
+      font-size:      1.6mm;
+      font-weight:    300;
+      letter-spacing: 0.05em;
+      color:          var(--color-text-secondary);
+    }
+
+    /* 連絡先ブロック */
+    .card__contact {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-sm);
+    }
+
+    .card__contact-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-xs);
+    }
+
+    .card__contact-item {
+      display:     flex;
+      align-items: baseline;
+      gap:         2mm;
+    }
+
+    .card__contact-label {
+      font-family:    var(--font-mono);
+      font-weight:    300;
+      font-size:      var(--fs-label);
+      letter-spacing: 0.04em;
+      color:          var(--color-text-secondary);
+      min-width:      7mm;
+      flex-shrink:    0;
+    }
+
+    .card__contact-value {
+      font-family:    var(--font-sans);
+      font-weight:    300;
+      font-size:      var(--fs-value);
+      letter-spacing: 0.01em;
+      color:          var(--color-text-primary);
+    }
+
+    /* 裏面の背景モノグラム (印刷映え) */
+    .card--back::before {
+      content:     'K';
+      position:    absolute;
+      right:       -4mm;
+      top:         50%;
+      transform:   translateY(-50%);
+      font-family: var(--font-sans);
+      font-weight: 200;
+      font-size:   60mm;
+      line-height: 1;
+      color:       var(--color-monogram);
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* =====================================================
+       @media print — 印刷時はプレビューUIを非表示
+       ===================================================== */
+    @media print {
+      body { background: none; padding: 0; gap: 0; }
+      .preview__label { display: none; }
+      .card { outline: none; page-break-after: always; }
+    }
+  </style>
+</head>
+<body>
+
+  <span class="preview__label">Front · 表面</span>
+
+  <!-- ================================================
+       表面 (Front)
+       ================================================ -->
+  <div class="card card--front" role="img" aria-label="Business card front — Kanare Kodera, Cloud Engineer">
+    <div class="card__inner">
+
+      <!-- 名前 -->
+      <div class="card__name">
+        <span class="card__name-line">Kanare</span>
+        <span class="card__name-line">Kodera</span>
+      </div>
+
+      <!-- 肩書き・技術スタック -->
+      <div class="card__bottom">
+        <div class="card__rule"></div>
+        <span class="card__title">Cloud Engineer</span>
+        <div class="card__tags">
+          <span class="card__tag">AWS</span>
+          <span class="card__tag">Terraform</span>
+          <span class="card__tag">Kubernetes</span>
+          <span class="card__tag">Platform Engineering</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <span class="preview__label">Back · 裏面</span>
+
+  <!-- ================================================
+       裏面 (Back)
+       ================================================ -->
+  <div class="card card--back" role="img" aria-label="Business card back — contact information">
+    <div class="card__inner">
+
+      <!-- QRコード (kanare.dev へのリンク) -->
+      <div class="card__qr-wrap">
+        <div class="card__qr">
+          <!-- 実装時: <img src="qr-kanare-dev.svg" width="100%" height="100%" alt="QR code for kanare.dev"> -->
+          <span class="card__qr-placeholder">QR<br>kanare.dev</span>
+        </div>
+        <span class="card__qr-caption">kanare.dev</span>
+      </div>
+
+      <!-- 連絡先 -->
+      <div class="card__contact">
+        <div class="card__rule"></div>
+
+        <!-- Web + Mail -->
+        <div class="card__contact-group">
+          <div class="card__contact-item">
+            <span class="card__contact-label">web</span>
+            <span class="card__contact-value">kanare.dev</span>
+          </div>
+          <div class="card__contact-item">
+            <span class="card__contact-label">mail</span>
+            <span class="card__contact-value">me@kanare.dev</span>
+          </div>
+        </div>
+
+        <!-- SNS -->
+        <div class="card__contact-group">
+          <div class="card__contact-item">
+            <span class="card__contact-label">x</span>
+            <span class="card__contact-value">@kanare_io</span>
+          </div>
+          <div class="card__contact-item">
+            <span class="card__contact-label">github</span>
+            <span class="card__contact-value">kanare-dev</span>
+          </div>
+          <div class="card__contact-item">
+            <span class="card__contact-label">in</span>
+            <span class="card__contact-value">/in/kanare</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>
