@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Business Card — Kanare Kodera</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+JP:wght@200;300;400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="src/styles.css">
+  <style>
+    body {
+      background: #171716;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      padding: 48px 40px;
+      font-family: var(--font-sans);
+    }
+
+    .preview__label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.25);
+    }
+
+    .card {
+      width:      var(--card-w);
+      height:     var(--card-h);
+      background: var(--color-bg);
+      position:   relative;
+      overflow:   hidden;
+      outline: var(--bleed) solid rgba(216, 170, 0, 0.4);
+      outline-offset: calc(-1 * var(--bleed));
+    }
+
+    .card__inner {
+      position: absolute;
+      top:    var(--safe-h);
+      bottom: var(--safe-h);
+      left:   var(--safe-v);
+      right:  var(--safe-v);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card--front .card__inner { justify-content: space-between; }
+
+    .card--back .card__inner {
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    @media print {
+      body { background: none; padding: 0; gap: 0; }
+      .preview__label { display: none; }
+      .card { outline: none; page-break-after: always; }
+    }
+  </style>
+</head>
+<body>
+
+  <span class="preview__label">Front · 表面</span>
+  <!-- include: partials/front.html -->
+
+  <span class="preview__label">Back · 裏面</span>
+  <!-- include: partials/back.html -->
+
+</body>
+</html>

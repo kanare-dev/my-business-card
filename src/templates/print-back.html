@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>Business Card Front — Kanare Kodera</title>
+  <title>Business Card Back — Kanare Kodera</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+JP:wght@200;300;400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
@@ -36,37 +36,11 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      align-items: flex-start;
     }
   </style>
 </head>
 <body>
-  <div class="card card--front" role="img" aria-label="Business card front — Kanare Kodera, Cloud Engineer">
-  <div class="card__inner">
-
-    <div class="card__name">
-      <span class="card__name-line">Kanare</span>
-      <span class="card__name-line">Kodera</span>
-    </div>
-
-    <div class="card__avatar-wrap">
-      <div class="card__avatar">
-        <img src="avatar.png" alt="Avatar">
-      </div>
-    </div>
-
-    <div class="card__bottom">
-      <div class="card__rule"></div>
-      <span class="card__title">Cloud Engineer</span>
-      <div class="card__tags">
-        <span class="card__tag">AWS</span>
-        <span class="card__tag">Terraform</span>
-        <span class="card__tag">Kubernetes</span>
-        <span class="card__tag">Platform Engineering</span>
-      </div>
-    </div>
-
-  </div>
-</div>
-
+  <!-- include: partials/back.html -->
 </body>
 </html>

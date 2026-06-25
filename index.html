@@ -7,57 +7,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+JP:wght@200;300;400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="src/styles.css">
   <style>
-    /* =====================================================
-       CSS Variables — ここだけ変更してデザインを微調整できる
-       ===================================================== */
-    :root {
-      /* Colors — kanare.dev dark theme と統一 */
-      --color-bg:              #131210;
-      --color-text-primary:    #BFBFBF;
-      --color-text-secondary:  #949494;
-      --color-accent:          #d8aa00;
-      --color-divider:         rgba(148, 148, 148, 0.25);
-      --color-monogram:        rgba(191, 191, 191, 0.04);
-
-      /* Typography — kanare.dev と統一 */
-      --font-sans:  'IBM Plex Sans JP', sans-serif;
-      --font-mono:  'JetBrains Mono', 'Fira Code', monospace;
-
-      /* Card dimensions — ラクスル 標準名刺 91×55mm 縦型 */
-      --card-w:    55mm;
-      --card-h:    91mm;
-
-      /* 塗り足し 3mm (印刷時のガイド表示用) */
-      --bleed:     3mm;
-
-      /* セーフエリア = 塗り足し + 余白 */
-      --safe-h:    8mm;   /* 上下の安全マージン */
-      --safe-v:    7mm;   /* 左右の安全マージン */
-
-      /* Spacing tokens */
-      --sp-xs:   1.5mm;
-      --sp-sm:   3mm;
-      --sp-md:   5mm;
-      --sp-lg:   8mm;
-      --sp-xl:   12mm;
-
-      /* Font sizes */
-      --fs-name:    9.5mm;
-      --fs-title:   2.2mm;
-      --fs-tag:     1.9mm;
-      --fs-label:   1.7mm;
-      --fs-value:   2.1mm;
-    }
-
-    /* =====================================================
-       Reset
-       ===================================================== */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    /* =====================================================
-       Preview layout (not printed)
-       ===================================================== */
     body {
       background: #171716;
       min-height: 100vh;
@@ -78,21 +29,16 @@
       color: rgba(255, 255, 255, 0.25);
     }
 
-    /* =====================================================
-       Card — shared
-       ===================================================== */
     .card {
-      width:    var(--card-w);
-      height:   var(--card-h);
+      width:      var(--card-w);
+      height:     var(--card-h);
       background: var(--color-bg);
-      position: relative;
-      overflow: hidden;
-      /* 塗り足しガイド (プレビューのみ表示) */
+      position:   relative;
+      overflow:   hidden;
       outline: var(--bleed) solid rgba(216, 170, 0, 0.4);
       outline-offset: calc(-1 * var(--bleed));
     }
 
-    /* セーフエリア内コンテンツ */
     .card__inner {
       position: absolute;
       top:    var(--safe-h);
@@ -103,169 +49,13 @@
       flex-direction: column;
     }
 
-    /* セクション区切り線 */
-    .card__rule {
-      width: 7mm;
-      height: 0.25mm;
-      background: var(--color-accent);
-      flex-shrink: 0;
-    }
+    .card--front .card__inner { justify-content: space-between; }
 
-    /* =====================================================
-       Front — 表面
-       ===================================================== */
-    .card--front .card__inner {
-      justify-content: space-between;
-    }
-
-    /* 名前ブロック */
-    .card__name {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-      line-height: 1;
-    }
-
-    /* アバター */
-    .card__avatar-wrap {
-      display: flex;
-      justify-content: center;
-    }
-
-    .card__avatar {
-      width:         13mm;
-      height:        13mm;
-      border-radius: 50%;
-      overflow:      hidden;
-      flex-shrink:   0;
-    }
-
-    .card__avatar img {
-      width:      100%;
-      height:     100%;
-      object-fit: cover;
-    }
-
-    .card__name-line {
-      font-family:    var(--font-sans);
-      font-weight:    200;
-      font-size:      var(--fs-name);
-      letter-spacing: -0.01em;
-      color:          var(--color-text-primary);
-      line-height:    1.1;
-    }
-
-    /* 下部ブロック */
-    .card__bottom {
-      display: flex;
-      flex-direction: column;
-      gap: var(--sp-sm);
-    }
-
-    .card__title {
-      font-family:    var(--font-sans);
-      font-weight:    300;
-      font-size:      var(--fs-title);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color:          var(--color-text-secondary);
-    }
-
-    .card__tags {
-      display: flex;
-      flex-direction: column;
-      gap: var(--sp-xs);
-    }
-
-    .card__tag {
-      font-family:    var(--font-mono);
-      font-weight:    300;
-      font-size:      var(--fs-tag);
-      letter-spacing: 0.02em;
-      color:          var(--color-text-secondary);
-    }
-
-    /* =====================================================
-       Back — 裏面
-       ===================================================== */
     .card--back .card__inner {
       justify-content: space-between;
       align-items: flex-start;
     }
 
-    /* QRコード */
-    .card__qr-wrap {
-      align-self: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: var(--sp-xs);
-    }
-
-    .card__qr {
-      width:            22mm;
-      height:           22mm;
-      background:       var(--color-text-primary);
-      border-radius:    1mm;
-      display:          flex;
-      align-items:      center;
-      justify-content:  center;
-    }
-
-    .card__qr-caption {
-      font-family:    var(--font-mono);
-      font-size:      1.6mm;
-      font-weight:    300;
-      letter-spacing: 0.05em;
-      color:          var(--color-text-secondary);
-    }
-
-    /* 連絡先ブロック */
-    .card__contact {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: var(--sp-sm);
-    }
-
-    .card__contact-group {
-      display: flex;
-      flex-direction: column;
-      gap: var(--sp-xs);
-    }
-
-    .card__contact-item {
-      display:     flex;
-      align-items: center;
-      gap:         2mm;
-    }
-
-    .card__contact-label {
-      width:       4mm;
-      height:      4mm;
-      flex-shrink: 0;
-      color:       var(--color-text-secondary);
-      display:     flex;
-      align-items: center;
-    }
-
-    .card__contact-label svg {
-      width:  100%;
-      height: 100%;
-    }
-
-    .card__contact-value {
-      font-family:    var(--font-mono);
-      font-weight:    300;
-      font-size:      var(--fs-value);
-      letter-spacing: 0.01em;
-      color:          var(--color-text-primary);
-    }
-
-
-    /* =====================================================
-       @media print — 印刷時はプレビューUIを非表示
-       ===================================================== */
     @media print {
       body { background: none; padding: 0; gap: 0; }
       .preview__label { display: none; }
@@ -276,112 +66,101 @@
 <body>
 
   <span class="preview__label">Front · 表面</span>
-
-  <!-- ================================================
-       表面 (Front)
-       ================================================ -->
   <div class="card card--front" role="img" aria-label="Business card front — Kanare Kodera, Cloud Engineer">
-    <div class="card__inner">
+  <div class="card__inner">
 
-      <!-- 名前 -->
-      <div class="card__name">
-        <span class="card__name-line">Kanare</span>
-        <span class="card__name-line">Kodera</span>
-      </div>
-
-      <!-- アバター（中央） -->
-      <div class="card__avatar-wrap">
-        <div class="card__avatar">
-          <img src="avatar.png" alt="Avatar">
-        </div>
-      </div>
-
-      <!-- 肩書き・技術スタック -->
-      <div class="card__bottom">
-        <div class="card__rule"></div>
-        <span class="card__title">Cloud Engineer</span>
-        <div class="card__tags">
-          <span class="card__tag">AWS</span>
-          <span class="card__tag">Terraform</span>
-          <span class="card__tag">Kubernetes</span>
-          <span class="card__tag">Platform Engineering</span>
-        </div>
-      </div>
-
+    <div class="card__name">
+      <span class="card__name-line">Kanare</span>
+      <span class="card__name-line">Kodera</span>
     </div>
+
+    <div class="card__avatar-wrap">
+      <div class="card__avatar">
+        <img src="avatar.png" alt="Avatar">
+      </div>
+    </div>
+
+    <div class="card__bottom">
+      <div class="card__rule"></div>
+      <span class="card__title">Cloud Engineer</span>
+      <div class="card__tags">
+        <span class="card__tag">AWS</span>
+        <span class="card__tag">Terraform</span>
+        <span class="card__tag">Kubernetes</span>
+        <span class="card__tag">Platform Engineering</span>
+      </div>
+    </div>
+
   </div>
+</div>
+
 
   <span class="preview__label">Back · 裏面</span>
-
-  <!-- ================================================
-       裏面 (Back)
-       ================================================ -->
   <div class="card card--back" role="img" aria-label="Business card back — contact information">
-    <div class="card__inner">
+  <div class="card__inner">
 
-      <!-- QRコード (kanare.dev へのリンク) -->
-      <div class="card__qr-wrap">
-        <div class="card__qr">
-          <img src="qr-code.svg" width="100%" height="100%" alt="QR code for kanare.dev">
-        </div>
-        <span class="card__qr-caption">kanare.dev</span>
+    <div class="card__qr-wrap">
+      <div class="card__qr">
+        <img src="qr-code.svg" alt="QR code for kanare.dev">
       </div>
-
-      <!-- 連絡先 -->
-      <div class="card__contact">
-        <div class="card__rule"></div>
-
-        <div class="card__contact-group">
-          <div class="card__contact-item">
-            <span class="card__contact-label">
-              <!-- tabler-world -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="12" cy="12" r="9"/><path d="M3.6 9h16.8M3.6 15h16.8M11.5 3a17 17 0 0 0 0 18M12.5 3a17 17 0 0 1 0 18"/>
-              </svg>
-            </span>
-            <span class="card__contact-value">kanare.dev</span>
-          </div>
-          <div class="card__contact-item">
-            <span class="card__contact-label">
-              <!-- tabler-mail -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
-                <rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>
-              </svg>
-            </span>
-            <span class="card__contact-value">me@kanare.dev</span>
-          </div>
-          <div class="card__contact-item">
-            <span class="card__contact-label">
-              <!-- tabler-brand-x -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
-                <path d="M4 4l11.733 16H20L8.267 4zM4 20l6.768-6.768M15.232 9.232L20 4"/>
-              </svg>
-            </span>
-            <span class="card__contact-value">@kanare_io</span>
-          </div>
-          <div class="card__contact-item">
-            <span class="card__contact-label">
-              <!-- tabler-brand-github -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
-                <path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/>
-              </svg>
-            </span>
-            <span class="card__contact-value">kanare-dev</span>
-          </div>
-          <div class="card__contact-item">
-            <span class="card__contact-label">
-              <!-- tabler-brand-linkedin -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
-                <rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 11v5M8 8v.01M12 16v-5M16 16v-3a2 2 0 0 0-4 0"/>
-              </svg>
-            </span>
-            <span class="card__contact-value">/in/kanare</span>
-          </div>
-        </div>
-      </div>
-
+      <span class="card__qr-caption">kanare.dev</span>
     </div>
+
+    <div class="card__contact">
+      <div class="card__rule"></div>
+
+      <div class="card__contact-group">
+        <div class="card__contact-item">
+          <span class="card__contact-label">
+            <!-- tabler-world -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="12" cy="12" r="9"/><path d="M3.6 9h16.8M3.6 15h16.8M11.5 3a17 17 0 0 0 0 18M12.5 3a17 17 0 0 1 0 18"/>
+            </svg>
+          </span>
+          <span class="card__contact-value">kanare.dev</span>
+        </div>
+        <div class="card__contact-item">
+          <span class="card__contact-label">
+            <!-- tabler-mail -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+              <rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>
+            </svg>
+          </span>
+          <span class="card__contact-value">me@kanare.dev</span>
+        </div>
+        <div class="card__contact-item">
+          <span class="card__contact-label">
+            <!-- tabler-brand-x -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 4l11.733 16H20L8.267 4zM4 20l6.768-6.768M15.232 9.232L20 4"/>
+            </svg>
+          </span>
+          <span class="card__contact-value">@kanare_io</span>
+        </div>
+        <div class="card__contact-item">
+          <span class="card__contact-label">
+            <!-- tabler-brand-github -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/>
+            </svg>
+          </span>
+          <span class="card__contact-value">kanare-dev</span>
+        </div>
+        <div class="card__contact-item">
+          <span class="card__contact-label">
+            <!-- tabler-brand-linkedin -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 11v5M8 8v.01M12 16v-5M16 16v-3a2 2 0 0 0-4 0"/>
+            </svg>
+          </span>
+          <span class="card__contact-value">/in/kanare</span>
+        </div>
+      </div>
+    </div>
+
   </div>
+</div>
+
 
 </body>
 </html>

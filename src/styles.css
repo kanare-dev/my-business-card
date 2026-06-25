@@ -1,0 +1,185 @@
+/* =====================================================
+   Shared styles — edit here, then run build.py
+   ===================================================== */
+
+:root {
+  --color-bg:              #131210;
+  --color-text-primary:    #BFBFBF;
+  --color-text-secondary:  #949494;
+  --color-accent:          #d8aa00;
+
+  --font-sans:  'IBM Plex Sans JP', sans-serif;
+  --font-mono:  'JetBrains Mono', monospace;
+
+  --card-w:    55mm;
+  --card-h:    91mm;
+  --bleed:     3mm;
+  --page-w:    61mm;
+  --page-h:    97mm;
+  --safe-h:    8mm;
+  --safe-v:    7mm;
+
+  --sp-xs:   1.5mm;
+  --sp-sm:   3mm;
+  --sp-md:   5mm;
+  --sp-lg:   8mm;
+  --sp-xl:   12mm;
+
+  --fs-name:    9.5mm;
+  --fs-title:   2.2mm;
+  --fs-tag:     1.9mm;
+  --fs-label:   1.7mm;
+  --fs-value:   2.1mm;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* Accent rule */
+.card__rule {
+  width:      7mm;
+  height:     0.25mm;
+  background: var(--color-accent);
+  flex-shrink: 0;
+}
+
+/* =====================================================
+   Front card components
+   ===================================================== */
+.card__name {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+
+.card__name-line {
+  font-family:    var(--font-sans);
+  font-weight:    200;
+  font-size:      var(--fs-name);
+  letter-spacing: -0.01em;
+  color:          var(--color-text-primary);
+  line-height:    1.1;
+}
+
+.card__avatar-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.card__avatar {
+  width:         13mm;
+  height:        13mm;
+  border-radius: 50%;
+  overflow:      hidden;
+  flex-shrink:   0;
+}
+
+.card__avatar img {
+  width:      100%;
+  height:     100%;
+  object-fit: cover;
+}
+
+.card__bottom {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-sm);
+}
+
+.card__title {
+  font-family:    var(--font-sans);
+  font-weight:    300;
+  font-size:      var(--fs-title);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color:          var(--color-text-secondary);
+}
+
+.card__tags {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-xs);
+}
+
+.card__tag {
+  font-family:    var(--font-mono);
+  font-weight:    300;
+  font-size:      var(--fs-tag);
+  letter-spacing: 0.02em;
+  color:          var(--color-text-secondary);
+}
+
+/* =====================================================
+   Back card components
+   ===================================================== */
+.card__qr-wrap {
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-xs);
+}
+
+.card__qr {
+  width:           22mm;
+  height:          22mm;
+  background:      var(--color-text-primary);
+  border-radius:   1mm;
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  overflow:        hidden;
+}
+
+.card__qr img {
+  width:  100%;
+  height: 100%;
+}
+
+.card__qr-caption {
+  font-family:    var(--font-mono);
+  font-size:      1.6mm;
+  font-weight:    300;
+  letter-spacing: 0.05em;
+  color:          var(--color-text-secondary);
+}
+
+.card__contact {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-sm);
+}
+
+.card__contact-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-xs);
+}
+
+.card__contact-item {
+  display:     flex;
+  align-items: center;
+  gap:         2mm;
+}
+
+.card__contact-label {
+  width:       4mm;
+  height:      4mm;
+  flex-shrink: 0;
+  color:       var(--color-text-secondary);
+  display:     flex;
+  align-items: center;
+}
+
+.card__contact-label svg {
+  width:  100%;
+  height: 100%;
+}
+
+.card__contact-value {
+  font-family:    var(--font-mono);
+  font-weight:    300;
+  font-size:      var(--fs-value);
+  letter-spacing: 0.01em;
+  color:          var(--color-text-primary);
+}
