@@ -26,10 +26,10 @@
   --sp-xl:   12mm;
 
   --fs-name:    9.5mm;
-  --fs-title:   2.2mm;
-  --fs-tag:     1.9mm;
-  --fs-label:   1.7mm;
-  --fs-value:   2.1mm;
+  --fs-title:   2.5mm;
+  --fs-tag:     2.2mm;
+  --fs-label:   2.0mm;
+  --fs-value:   2.4mm;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -144,7 +144,7 @@
 
 .card__qr-caption {
   font-family:    var(--font-mono);
-  font-size:      1.6mm;
+  font-size:      1.9mm;
   font-weight:    300;
   letter-spacing: 0.05em;
   color:          var(--color-text-secondary);
