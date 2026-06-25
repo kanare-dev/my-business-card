@@ -120,22 +120,26 @@
 
     .card__contact-item {
       display:     flex;
-      align-items: baseline;
+      align-items: center;
       gap:         2mm;
     }
 
     .card__contact-label {
-      font-family:    var(--font-mono);
-      font-weight:    300;
-      font-size:      var(--fs-label);
-      letter-spacing: 0.04em;
-      color:          var(--color-text-secondary);
-      min-width:      7mm;
-      flex-shrink:    0;
+      width:       4mm;
+      height:      4mm;
+      flex-shrink: 0;
+      color:       var(--color-text-secondary);
+      display:     flex;
+      align-items: center;
+    }
+
+    .card__contact-label svg {
+      width:  100%;
+      height: 100%;
     }
 
     .card__contact-value {
-      font-family:    var(--font-sans);
+      font-family:    var(--font-mono);
       font-weight:    300;
       font-size:      var(--fs-value);
       letter-spacing: 0.01em;
@@ -159,26 +163,49 @@
 
         <div class="card__contact-group">
           <div class="card__contact-item">
-            <span class="card__contact-label">Web</span>
-            <span class="card__contact-value">https://kanare.dev</span>
+            <span class="card__contact-label">
+              <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/>
+                <path d="M8 1.5C8 1.5 5.5 4.5 5.5 8s2.5 6.5 2.5 6.5S10.5 11.5 10.5 8 8 1.5 8 1.5z" stroke="currentColor" stroke-width="1.3"/>
+                <path d="M1.5 8h13" stroke="currentColor" stroke-width="1.3"/>
+              </svg>
+            </span>
+            <span class="card__contact-value">kanare.dev</span>
           </div>
           <div class="card__contact-item">
-            <span class="card__contact-label">Mail</span>
+            <span class="card__contact-label">
+              <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="1.5" y="3.5" width="13" height="9" rx="1" stroke="currentColor" stroke-width="1.3"/>
+                <path d="M1.5 4.5L8 9l6.5-4.5" stroke="currentColor" stroke-width="1.3"/>
+              </svg>
+            </span>
             <span class="card__contact-value">me@kanare.dev</span>
           </div>
         </div>
 
         <div class="card__contact-group">
           <div class="card__contact-item">
-            <span class="card__contact-label">X</span>
+            <span class="card__contact-label">
+              <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12.6 2h2.1L9.9 7.3 15.5 14h-4.2l-3.5-4.5L4 14H1.9l5.2-5.8L1 2h4.3l3.2 4.1L12.6 2zm-.7 10.8h1.2L4.2 3.2H2.9l9 9.6z" fill="currentColor"/>
+              </svg>
+            </span>
             <span class="card__contact-value">@kanare_io</span>
           </div>
           <div class="card__contact-item">
-            <span class="card__contact-label">Github</span>
+            <span class="card__contact-label">
+              <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M8 1C4.13 1 1 4.13 1 8c0 3.08 2 5.69 4.78 6.61.35.06.48-.15.48-.34v-1.2C4.34 13.4 3.93 12 3.93 12c-.32-.81-.78-1.02-.78-1.02-.64-.43.05-.43.05-.43.7.05 1.07.72 1.07.72.63 1.07 1.64.76 2.04.58.06-.45.25-.76.45-.94-1.56-.18-3.2-.78-3.2-3.47 0-.77.27-1.4.72-1.89-.07-.18-.31-.9.07-1.87 0 0 .59-.19 1.92.72A6.66 6.66 0 018 5.08c.59 0 1.19.08 1.75.23 1.33-.9 1.92-.72 1.92-.72.38.97.14 1.69.07 1.87.45.5.72 1.12.72 1.89 0 2.7-1.64 3.29-3.21 3.47.25.22.48.65.48 1.31v1.94c0 .19.12.4.48.34A7.01 7.01 0 0015 8c0-3.87-3.13-7-7-7z" fill="currentColor"/>
+              </svg>
+            </span>
             <span class="card__contact-value">kanare-dev</span>
           </div>
           <div class="card__contact-item">
-            <span class="card__contact-label">LinkedIn</span>
+            <span class="card__contact-label">
+              <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1.5 5.5h2.5v8H1.5v-8zM2.75 4.5A1.25 1.25 0 112.75 2a1.25 1.25 0 010 2.5zM5.5 5.5h2.4v1.1c.33-.63 1.17-1.3 2.4-1.3 2.57 0 3.04 1.69 3.04 3.89V13.5h-2.5V9.7c0-.93 0-2.13-1.3-2.13-1.3 0-1.5 1.02-1.5 2.07v3.86H5.5V5.5z" fill="currentColor"/>
+              </svg>
+            </span>
             <span class="card__contact-value">/in/kanare</span>
           </div>
         </div>
