@@ -191,18 +191,6 @@
       justify-content:  center;
     }
 
-    /* QRコードSVGのプレースホルダー
-       実装時は <img src="qr.svg"> に差し替え */
-    .card__qr-placeholder {
-      font-family:  var(--font-mono);
-      font-size:    1.6mm;
-      font-weight:  400;
-      color:        var(--color-bg);
-      text-align:   center;
-      line-height:  1.5;
-      opacity:      0.5;
-    }
-
     .card__qr-caption {
       font-family:    var(--font-mono);
       font-size:      1.6mm;
@@ -317,8 +305,7 @@
       <!-- QRコード (kanare.dev へのリンク) -->
       <div class="card__qr-wrap">
         <div class="card__qr">
-          <!-- 実装時: <img src="qr-kanare-dev.svg" width="100%" height="100%" alt="QR code for kanare.dev"> -->
-          <span class="card__qr-placeholder">QR<br>kanare.dev</span>
+          <img src="qr-code.svg" width="100%" height="100%" alt="QR code for kanare.dev">
         </div>
         <span class="card__qr-caption">kanare.dev</span>
       </div>
