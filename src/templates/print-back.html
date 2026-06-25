@@ -6,7 +6,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+JP:wght@200;300;400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="src/styles.css">
+  <link rel="stylesheet" href="../src/styles.css">
   <style>
     @page { size: var(--page-w) var(--page-h); margin: 0; }
 
@@ -39,9 +39,9 @@
       align-items: flex-start;
     }
 
-    /* トップのセーフエリア分だけ下にずらして、上下余白を視覚的に均等にする */
+    /* ブリードは裁断で消えるので、補正はsafe-hのみ */
     .card__qr-section {
-      padding-bottom: calc(var(--bleed) + var(--safe-h));
+      padding-bottom: var(--safe-h);
     }
   </style>
 </head>

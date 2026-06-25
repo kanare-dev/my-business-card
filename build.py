@@ -14,14 +14,14 @@ PORT   = 8791
 CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
 
 HTML_TARGETS = [
-    ('src/templates/index.html',       'index.html'),
-    ('src/templates/print-front.html', 'print-front.html'),
-    ('src/templates/print-back.html',  'print-back.html'),
+    ('src/templates/index.html',       'build/index.html'),
+    ('src/templates/print-front.html', 'build/print-front.html'),
+    ('src/templates/print-back.html',  'build/print-back.html'),
 ]
 
 PDF_TARGETS = [
-    ('print-front.html', 'dist/front.pdf'),
-    ('print-back.html',  'dist/back.pdf'),
+    ('build/print-front.html', 'dist/front.pdf'),
+    ('build/print-back.html',  'dist/back.pdf'),
 ]
 
 def expand(content, base_dir):
@@ -32,6 +32,7 @@ def expand(content, base_dir):
     return re.sub(r'<!-- include: (.+?) -->', replacer, content)
 
 def build_html():
+    os.makedirs(os.path.join(BASE, 'build'), exist_ok=True)
     for src_rel, out_rel in HTML_TARGETS:
         with open(os.path.join(BASE, src_rel)) as f:
             content = f.read()
