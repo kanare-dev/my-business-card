@@ -45,19 +45,6 @@ open index.html
 }
 ```
 
-## Figma
-
-デザインの Figma ファイルはこちら:
-
-🔗 **[Business Card — Kanare Kodera](https://www.figma.com/design/WoKecPvSgTHemnVCIW4pFt)**
-
-| 面 | 内容 |
-|---|---|
-| 表面 | 名前（Inter Extra Light）/ Cloud Engineer / 技術タグ |
-| 裏面 | QR コードプレースホルダー / 連絡先 / 背景モノグラム "K" |
-
-> **QR コードについて:** Figma・HTML ともに現在はプレースホルダーです。印刷前に実際の URL（例: `kanare.dev`）の QR コード画像を差し替えてください。
-
 ## 印刷（ラクスル）
 
 1. `index.html` をブラウザで開く
